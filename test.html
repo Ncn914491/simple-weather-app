@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App Test</title>
+</head>
+<body>
+    <h1>Weather App Test</h1>
+    <button onclick="testCities()">Test Sample Cities</button>
+    <div id="results"></div>
+    
+    <script>
+        // Test the mock data function directly
+        function getMockWeatherData(city) {
+            const mockData = {
+                'london': {
+                    temp_C: '15',
+                    FeelsLikeC: '13',
+                    humidity: '78',
+                    pressure: '1013',
+                    windspeedKmph: '12',
+                    weatherDesc: 'Partly cloudy',
+                    areaName: 'London',
+                    country: 'United Kingdom'
+                },
+                'tokyo': {
+                    temp_C: '22',
+                    FeelsLikeC: '24',
+                    humidity: '65',
+                    pressure: '1015',
+                    windspeedKmph: '8',
+                    weatherDesc: 'Clear',
+                    areaName: 'Tokyo',
+                    country: 'Japan'
+                }
+            };
+            
+            const cityKey = city.toLowerCase();
+            const data = mockData[cityKey] || {
+                temp_C: '20',
+                FeelsLikeC: '19',
+                humidity: '70',
+                pressure: '1013',
+                windspeedKmph: '10',
+                weatherDesc: 'Partly cloudy',
+                areaName: city,
+                country: 'Unknown'
+            };
+            
+            return {
+                current_condition: [{
+                    temp_C: data.temp_C,
+                    FeelsLikeC: data.FeelsLikeC,
+                    humidity: data.humidity,
+                    pressure: data.pressure,
+                    windspeedKmph: data.windspeedKmph,
+                    weatherDesc: [{ value: data.weatherDesc }]
+                }],
+                nearest_area: [{
+                    areaName: [{ value: data.areaName }],
+                    country: [{ value: data.country }]
+                }],
+                isMockData: true
+            };
+        }
+
+        function testCities() {
+            const cities = ['London', 'Tokyo', 'Paris', 'Mumbai'];
+            const results = document.getElementById('results');
+            results.innerHTML = '<h2>Test Results:</h2>';
+            
+            cities.forEach(city => {
+                const data = getMockWeatherData(city);
+                const current = data.current_condition[0];
+                const location = data.nearest_area[0];
+                
+                results.innerHTML += `
+                    <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                        <h3>${location.areaName[0].value}, ${location.country[0].value}</h3>
+                        <p><strong>Temperature:</strong> ${current.temp_C}°C (feels like ${current.FeelsLikeC}°C)</p>
+                        <p><strong>Weather:</strong> ${current.weatherDesc[0].value}</p>
+                        <p><strong>Humidity:</strong> ${current.humidity}%</p>
+                        <p><strong>Wind Speed:</strong> ${current.windspeedKmph} km/h</p>
+                        <p><strong>Pressure:</strong> ${current.pressure} mb</p>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

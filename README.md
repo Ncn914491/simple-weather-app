@@ -37,11 +37,18 @@ Simply open `index.html` in any modern web browser to start using the app.
 
 ## API Information
 
-This application uses the [wttr.in](https://wttr.in) weather service, which provides:
-- Free weather data without API key requirements
-- Global weather coverage
-- JSON format responses
-- Reliable uptime and fast responses
+This application is designed to work with weather APIs but includes mock data for demonstration purposes:
+
+**Primary API:** OpenWeatherMap (requires free API key)
+- Sign up at [OpenWeatherMap](https://openweathermap.org/api) for a free API key
+- Replace the 'demo' API key in script.js with your actual key
+- Provides real-time weather data globally
+
+**Demo Mode:** Mock weather data
+- Works without internet connection
+- Includes data for: London, Tokyo, New York, Paris, Sydney
+- Shows "(Demo Data)" indicator
+- Perfect for testing and demonstration
 
 ## Browser Support
 
